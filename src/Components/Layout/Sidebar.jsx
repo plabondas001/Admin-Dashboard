@@ -103,7 +103,7 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
 
   return (
     <div
-      className={`${collapsed ? "w-20" : "w-72"} transition duration-300 ease-in-out bg-white  backdrop-blur-xl border-r border-slate-100/50 dark:border-slate-300/50 flex flex-col relative z-10`}
+      className={`${collapsed ? "w-20" : "w-72"} transition-all duration-500 ease-in-out backdrop-blur-xl border-r border-slate-100/50 dark:border-slate-300/50 flex flex-col relative z-10`}
     >
       {/* logo */}
       <div className="p-6 border-b border-slate-200/50 dark:border-slate-300/50">
@@ -147,12 +147,11 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
                   <item.icon className="w-5 h-5" />
 
                   {/* conditional Rendering */}
-                  <>
+                
                     {!collapsed && (
+                       <> 
                       <span className="font-medium ml-2">{item.label}</span>
-                    )}
-
-                    {item.badge && (
+                      {item.badge && (
                       <span className="px-2 py-1 text-xs bg-red-500 text-white rounded-full ">
                         {item.badge}
                       </span>
@@ -162,7 +161,10 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
                         {item.count}
                       </span>
                     )}
-                  </>
+                    </>
+                    )}
+
+                    
                 </div>
 
                 {!collapsed && item.submenu && (

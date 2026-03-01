@@ -1,12 +1,24 @@
-import { Bell, ChevronDown, Filter, Menu, Plus, Search, Settings, Sun } from "lucide-react";
+import {
+  Bell,
+  ChevronDown,
+  Filter,
+  Menu,
+  Plus,
+  Search,
+  Settings,
+  Sun,
+} from "lucide-react";
 
-const Header = () => {
+const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
   return (
-    <div className="bg-slate-800/50 dark:bg-slate-200/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-200/50 px-6 py-4">
+    <div className="bg-[#ecf0f6] shadow-lg backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-200/50 px-6 py-4">
       <div className="flex items-center justify-between">
         {/* Left section */}
         <div className="flex items-center space-x-4">
-          <button className="p-2 rounded-lg text-white dark:text-black hover:bg-black dark:hover:bg-white transition-colors">
+          <button
+            onClick={onToggleSidebar}
+            className="p-2 rounded-lg text-white dark:text-black hover:bg-black dark:hover:bg-white transition-colors"
+          >
             <Menu className="w-5 h-5"></Menu>
           </button>
 
@@ -69,8 +81,12 @@ const Header = () => {
               className="w-8 h-8 rounded-full ring-2 ring-blue-500"
             />
             <div className="hidden md:block">
-                <p className="text-md font-bold text-white dark:text-black">Plabon Das</p>
-                <p className="text-xs text-white dark:text-black">Administrator</p>
+              <p className="text-md font-bold text-white dark:text-black">
+                Plabon Das
+              </p>
+              <p className="text-xs text-white dark:text-black">
+                Administrator
+              </p>
             </div>
             <ChevronDown className="w-4 h-4 text-white dark:text-black"></ChevronDown>
           </div>

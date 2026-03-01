@@ -13,7 +13,7 @@ function App() {
     <div className="flex h-screen overflow-hidden">
    <Sidebar collapsed = {sideBarCollapsed} onToggle = {() => setSideBarCollapsed(!sideBarCollapsed)} currentPage = {currentpage} onPageChange ={setCurrentPage}></Sidebar>
    <div className="flex-1 flex flex-col overflow-hidden">
-    <Header></Header>
+    <Header SidebarCollapsed = {sideBarCollapsed} onToggleSidebar = {() => setSideBarCollapsed(!sideBarCollapsed)}></Header>
    </div>
     </div>
    </div>
