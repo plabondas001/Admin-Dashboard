@@ -1,99 +1,132 @@
 import {
-  Bell,
-  ChevronDown,
-  Filter,
-  Menu,
-  Plus,
-  Search,
-  Settings,
-  Sun,
+    Bell,
+    ChevronDown,
+    Filter,
+    Menu,
+    Plus,
+    Search,
+    Settings,
+    Sun,
+    Moon,
+    User,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
-  return (
-    <div className="bg-[#ecf0f6] shadow-lg backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-200/50 px-6 py-4">
-      <div className="flex items-center justify-between">
-        {/* Left section */}
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={onToggleSidebar}
-            className="p-2 rounded-lg text-white dark:text-black hover:bg-black dark:hover:bg-white transition-colors"
-          >
-            <Menu className="w-5 h-5"></Menu>
-          </button>
+    const [theme, setTheme] = useState(() => {
+        try {
+            const t = localStorage.getItem("theme");
+            if (t) return t;
+            return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        } catch (e) {
+            return "light";
+        }
+    });
 
-          <div className="hidden md:block">
-            <h1 className="text-2xl font-bold text-white dark:text-black">
-              Dashboard
-            </h1>
-            <p>Welcome back, Alex! here's what's happening today</p>
-          </div>
-        </div>
+    useEffect(() => {
+        try {
+            if (theme === "dark") {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+            localStorage.setItem("theme", theme);
+        } catch (e) { }
+    }, [theme]);
 
-        {/* Center */}
-        <div className="flex-1 max-w-md mx-8">
-          <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></Search>
-            <input
-              className="w-full pl-10  pr-4 py-2.5 bg-black dark:bg-white border border-slate-300 dark:border-slate-200 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all dark:text-black"
-              type="text"
-              placeholder="Search Anything"
-            />
-            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-white dark:text-black hover:text-slate-600 dark:hover:text-black">
-              <Filter></Filter>
-            </button>
-          </div>
-        </div>
+    const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
-        {/* Right */}
+    return (
+        <div className="shadow-lg backdrop-blur-xl border-b border-slate-800 px-6 py-4" style={{ backgroundImage: 'linear-gradient(90deg,var(--bg-start),var(--bg-mid),var(--bg-end))' }}>
+            <div className="flex items-center justify-between">
+                {/* Left section */}
+                <div className="flex items-center space-x-4">
+                    <button
+                        onClick={onToggleSidebar}
+                        className="p-2 rounded-lg text-slate-200 hover:bg-slate-800 transition-colors"
+                        aria-label="Toggle sidebar"
+                    >
+                        <Menu className="w-5 h-5"></Menu>
+                    </button>
 
-        <div className="flex items-center space-x-3">
-          {/* Quic Action */}
-          <button className="hidden lg:flex items-center space-x-2 py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all">
-            <Plus className="w-4 h-4" />
-            <span className="text-sm font-medium">New</span>
-          </button>
+                    <div className="hidden md:block">
+                        <h1 className="text-2xl font-bold text-slate-100">
+                            Dashboard
+                        </h1>
+                        <p className="text-sm text-slate-300">Welcome back, Alex! here's what's happening today</p>
+                    </div>
+                </div>
 
-          {/* Toggle */}
-          <button className="p-2.5 rounded-xl text-slate-300 dark:text-slate-600 hover:bg-slate-600 dark:hover:bg-slate-300 transition-colors">
-            <Sun className="w-5 h-5" />
-          </button>
+                {/* Center */}
+                <div className="flex-1 max-w-md mx-8">
+                    <div className="relative">
+                        <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></Search>
+                        <input
+                            className="w-full pl-10  pr-4 py-2.5 bg-[#0b1a2a] border border-slate-700 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#214b6b] transition-all"
+                            type="text"
+                            placeholder="Search Anything"
+                        />
+                        <button className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-slate-200 dark:text-black hover:text-slate-600 dark:hover:text-black">
+                            <Filter></Filter>
+                        </button>
+                    </div>
+                </div>
 
-          {/* Notification */}
-          <button className="relative p-2.5 rounded-xl text-slate-100 hover:bg-slate-600 dark:text-slate-600 dark:hover:bg-slate-300 transition-colors">
-            <Bell className="w-5 h-5" />
-            <span className="absolute -top-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-              3
-            </span>
-          </button>
+                {/* Right */}
 
-          {/* Setting */}
-          <button className="p-2.5 rounded-xl text-slate-100 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-300 transition-colors">
-            <Settings className="w-5 h-5" />
-          </button>
+                <div className="flex items-center space-x-3">
+                    {/* Quic Action */}
+                    <button className="hidden lg:flex items-center space-x-2 py-2 px-4 text-slate-100 rounded-xl hover:shadow-lg transition-all" style={{ backgroundImage: 'linear-gradient(90deg,var(--accent-strong-start),var(--accent-strong-end))' }}>
+                        <Plus className="w-4 h-4" />
+                        <span className="text-sm font-medium">New</span>
+                    </button>
 
-          {/* User Profile */}
+                    {/* Toggle */}
+                    <button
+                        onClick={toggleTheme}
+                        className="p-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition-colors flex items-center justify-center"
+                        aria-label="Toggle theme"
+                    >
+                        {theme === "dark" ? (
+                            <Sun className="w-5 h-5" />
+                        ) : (
+                            <Moon className="w-5 h-5" />
+                        )}
+                    </button>
 
-          <div className="flex items-center space-x-3 pl-3 border-l border-slate-700 dark:border-slate-200">
-            <img
-              src="#"
-              alt=""
-              className="w-8 h-8 rounded-full ring-2 ring-blue-500"
-            />
-            <div className="hidden md:block">
-              <p className="text-md font-bold text-white dark:text-black">
-                Plabon Das
-              </p>
-              <p className="text-xs text-white dark:text-black">
-                Administrator
-              </p>
+                    {/* Notification */}
+                    <button className="relative p-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition-colors">
+                        <Bell className="w-5 h-5" />
+                        <span className="absolute -top-1 w-5 h-5 bg-red-500 text-slate-100 text-xs rounded-full flex items-center justify-center">
+                            3
+                        </span>
+                    </button>
+
+                    {/* Setting */}
+                    <button className="p-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition-colors">
+                        <Settings className="w-5 h-5" />
+                    </button>
+
+                    {/* User Profile */}
+
+                    <div className="flex items-center space-x-3 pl-3 border-l border-slate-700 dark:border-slate-200">
+                        <div className="w-8 h-8 rounded-full bg-slate-700 ring-2 ring-[#184a6a] flex items-center justify-center text-slate-200">
+                            <User className="w-4 h-4" />
+                        </div>
+                        <div className="hidden md:block">
+                            <p className="text-md font-bold text-slate-100">
+                                Plabon Das
+                            </p>
+                            <p className="text-xs text-slate-300">
+                                Administrator
+                            </p>
+                        </div>
+                        <ChevronDown className="w-4 h-4 text-slate-200"></ChevronDown>
+                    </div>
+                </div>
             </div>
-            <ChevronDown className="w-4 h-4 text-white dark:text-black"></ChevronDown>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Header;
