@@ -82,7 +82,7 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
                                 if (item.submenu) toggleExpanded(item.id);
                                 else onPageChange(item.id);
                             }}
-                            className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 ${currentPage === item.id || item.active ? 'text-slate-100 shadow-lg shadow-black/30' : 'text-slate-300 hover:bg-slate-800'}`}
+                            className={`w-full flex items-center cursor-pointer justify-between p-3 rounded-xl transition-all duration-200 ${currentPage === item.id || item.active ? 'text-slate-100 shadow-lg shadow-black/30' : 'text-slate-300 hover:bg-slate-800'}`}
                             style={currentPage === item.id || item.active ? { backgroundImage: 'linear-gradient(90deg,var(--accent-1),var(--accent-2))' } : undefined}
                         >
                             <div className="flex items-center space-x-3">
@@ -110,7 +110,7 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
                                 {item.submenu.map((subitem, idx) => (
                                     <button
                                         key={subitem.id}
-                                        className={`w-full text-left p-2 text-sm text-slate-300 rounded-lg transition-all transform ${expandedItems.has(item.id) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'} hover:bg-slate-800`}
+                                        className={`w-full cursor-pointer text-left p-2 text-sm text-slate-300 rounded-lg transition-all transform ${expandedItems.has(item.id) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'} hover:bg-slate-800`}
                                         style={{ transitionDelay: expandedItems.has(item.id) ? `${idx * 30}ms` : '0ms' }}
                                         onClick={() => onPageChange(subitem.id)}
                                     >

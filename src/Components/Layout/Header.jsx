@@ -43,7 +43,7 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                 <div className="flex items-center space-x-4">
                     <button
                         onClick={onToggleSidebar}
-                        className="p-2 rounded-lg text-slate-200 hover:bg-slate-800 transition-colors"
+                        className="p-2 rounded-lg cursor-pointer text-slate-200 hover:bg-slate-800 transition-colors"
                         aria-label="Toggle sidebar"
                     >
                         <Menu className="w-5 h-5"></Menu>
@@ -66,7 +66,7 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                             type="text"
                             placeholder="Search Anything"
                         />
-                        <button className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-slate-200 dark:text-black hover:text-slate-600 dark:hover:text-black">
+                        <button className="absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-slate-200 dark:text-black hover:text-slate-600 dark:hover:text-black">
                             <Filter></Filter>
                         </button>
                     </div>
@@ -76,7 +76,7 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
 
                 <div className="flex items-center space-x-3">
                     {/* Quic Action */}
-                    <button className="hidden lg:flex items-center space-x-2 py-2 px-4 text-slate-100 rounded-xl hover:shadow-lg transition-all" style={{ backgroundImage: 'linear-gradient(90deg,var(--accent-strong-start),var(--accent-strong-end))' }}>
+                    <button className="hidden cursor-pointer lg:flex items-center space-x-2 py-2 px-4 text-slate-100 rounded-xl hover:shadow-lg transition-all" style={{ backgroundImage: 'linear-gradient(90deg,var(--accent-strong-start),var(--accent-strong-end))' }}>
                         <Plus className="w-4 h-4" />
                         <span className="text-sm font-medium">New</span>
                     </button>
@@ -84,7 +84,7 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                     {/* Toggle */}
                     <button
                         onClick={toggleTheme}
-                        className="p-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition-colors flex items-center justify-center"
+                        className="p-2.5 cursor-pointer rounded-xl text-slate-200 hover:bg-slate-800 transition-colors flex items-center justify-center"
                         aria-label="Toggle theme"
                     >
                         {theme === "dark" ? (
@@ -95,7 +95,7 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                     </button>
 
                     {/* Notification */}
-                    <button className="relative p-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition-colors">
+                    <button className="relative p-2.5 cursor-pointer rounded-xl text-slate-200 hover:bg-slate-800 transition-colors">
                         <Bell className="w-5 h-5" />
                         <span className="absolute -top-1 w-5 h-5 bg-red-500 text-slate-100 text-xs rounded-full flex items-center justify-center">
                             3
@@ -103,7 +103,7 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                     </button>
 
                     {/* Setting */}
-                    <button className="p-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition-colors">
+                    <button className="p-2.5 cursor-pointer rounded-xl text-slate-200 hover:bg-slate-800 transition-colors">
                         <Settings className="w-5 h-5" />
                     </button>
 
