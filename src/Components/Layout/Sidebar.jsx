@@ -53,25 +53,7 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
             className={`${collapsed ? "w-20" : "w-72"} transition-all duration-500 ease-in-out backdrop-blur-xl flex flex-col relative z-10`}
             style={{ backgroundImage: 'linear-gradient(90deg,var(--bg-start),var(--bg-mid),var(--bg-end))' }}
         >
-            {/* logo */}
-            <div className="p-6 border-b border-slate-800">
-                <div className="flex items-center space-x-3">
-                    <div className={`${collapsed ? 'w-12 h-12' : 'w-36 h-10'} bg-transparent rounded-lg flex items-center justify-center shadow-lg transition-all`}>
-                        <img
-                            src="/public/logo-DaOXiO9r.png"
-                            alt="logo"
-                            className={`${collapsed ? 'w-8 h-8 p-0' : 'w-full h-full p-2 object-contain'}`}
-                        />
-                    </div>
-
-                    {!collapsed && (
-                        <div>
-                            <h1 className="text-lg font-bold text-slate-100 whitespace-nowrap">Sarker Shop</h1>
-                            <p className="text-xs text-slate-300">Admin Panel</p>
-                        </div>
-                    )}
-                </div>
-            </div>
+            <div className="px-4" />
 
             {/* Navigation */}
             <nav className={`flex-1 p-4 space-y-2 overflow-y-auto ${hideScrollbar ? 'no-scrollbar' : ''}`}>
@@ -124,21 +106,19 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
             </nav>
 
             {/* User Profile */}
-            {!collapsed && (
-                <div className="p-4 border-t border-slate-800">
-                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-transparent">
-                        <div className="w-10 h-10 rounded-full bg-slate-700 ring-2 ring-[#184a6a] flex items-center justify-center text-slate-200">
-                            <User className="w-5 h-5" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-slate-100 truncate">Sarker Shop</p>
-                                <p className="text-xs text-slate-300">Administrator</p>
-                            </div>
-                        </div>
+            <div className="p-4 border-t border-slate-800">
+                <div className="flex items-center space-x-3 p-3 rounded-xl bg-transparent cursor-pointer">
+                    <div className="w-8 h-8 rounded-full bg-slate-700 ring-2 ring-[#184a6a] flex items-center justify-center text-slate-200">
+                        <User className="w-5 h-5" />
                     </div>
+                    {!collapsed && (
+                        <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-slate-100 truncate">Sarker Shop</p>
+                            <p className="text-xs text-slate-300">Administrator</p>
+                        </div>
+                    )}
                 </div>
-            )}
+            </div>
         </div>
     );
 };

@@ -39,8 +39,17 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
     return (
         <div className="shadow-lg backdrop-blur-xl border-b border-slate-800 px-6 py-4" style={{ backgroundImage: 'linear-gradient(90deg,var(--bg-start),var(--bg-mid),var(--bg-end))' }}>
             <div className="flex items-center justify-between">
-                {/* Left section */}
+                {/* Left section - logo attached to header */}
                 <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 rounded-lg bg-transparent flex items-center justify-center">
+                            <img src="/logo-DaOXiO9r.png" alt="logo" className="w-9 h-9 object-contain" />
+                        </div>
+                        <div className="hidden sm:block">
+                            <h1 className="text-lg font-bold text-slate-100 uppercase">Sarker Shop</h1>
+                        </div>
+                    </div>
+
                     <button
                         onClick={onToggleSidebar}
                         className="p-2 rounded-lg cursor-pointer text-slate-200 hover:bg-slate-800 transition-colors"
