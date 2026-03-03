@@ -28,42 +28,47 @@ function App() {
 
     return (
         <div className="min-h-screen bg-[#071229] transition-all duration-500 text-slate-200">
-            <div className="flex h-screen overflow-hidden">
-                <Sidebar collapsed={sideBarCollapsed} onToggle={() => setSideBarCollapsed(!sideBarCollapsed)} currentPage={currentpage} onPageChange={setCurrentPage}></Sidebar>
-                <div className="flex-1 flex flex-col overflow-hidden border-l border-slate-800">
-                    <Header SidebarCollapsed={sideBarCollapsed} onToggleSidebar={() => setSideBarCollapsed(!sideBarCollapsed)}></Header>
-                    <div className="flex-1 overflow-auto">
-                        {/* Map page id to component */}
-                        {(() => {
-                            const pages = {
-                                dashboard: Dashboard,
-                                analytics: Analytics,
-                                overview: Overview,
-                                insights: Insights,
-                                users: Users,
-                                "all-users": AllUsers,
-                                roles: Roles,
-                                activity: Activity,
-                                ecommerce: Ecommerce,
-                                products: Products,
-                                orders: Orders,
-                                customers: Customers,
-                                inventory: Inventory,
-                                transactions: Transactions,
-                                messages: Messages,
-                                calendar: Calendar,
-                                reports: Reports,
-                                settings: Settings,
-                            };
+            <div className="flex flex-col h-screen">
+                {/* Header spans full width */}
+                <Header SidebarCollapsed={sideBarCollapsed} onToggleSidebar={() => setSideBarCollapsed(!sideBarCollapsed)} />
 
-                            const Page = pages[currentpage] || (() => <div className="p-6 text-slate-300">Page: {currentpage}</div>);
-                            return <Page />;
-                        })()}
+                {/* Below header: sidebar + content */}
+                <div className="flex flex-1 overflow-hidden">
+                    <Sidebar collapsed={sideBarCollapsed} onToggle={() => setSideBarCollapsed(!sideBarCollapsed)} currentPage={currentpage} onPageChange={setCurrentPage} />
+                    <div className="flex-1 flex flex-col overflow-hidden border-l border-slate-800">
+                        <div className="flex-1 overflow-auto">
+                            {/* Map page id to component */}
+                            {(() => {
+                                const pages = {
+                                    dashboard: Dashboard,
+                                    analytics: Analytics,
+                                    overview: Overview,
+                                    insights: Insights,
+                                    users: Users,
+                                    "all-users": AllUsers,
+                                    roles: Roles,
+                                    activity: Activity,
+                                    ecommerce: Ecommerce,
+                                    products: Products,
+                                    orders: Orders,
+                                    customers: Customers,
+                                    inventory: Inventory,
+                                    transactions: Transactions,
+                                    messages: Messages,
+                                    calendar: Calendar,
+                                    reports: Reports,
+                                    settings: Settings,
+                                };
+
+                                const Page = pages[currentpage] || (() => <div className="p-6 text-slate-300">Page: {currentpage}</div>);
+                                return <Page />;
+                            })()}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default App
