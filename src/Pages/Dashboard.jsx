@@ -12,16 +12,12 @@ import Breadcrumb from "../Components/Layout/Breadcrumb";
 const Dashboard = () => {
     return (
         <main className="p-6">
-            <Breadcrumb title="Ecommerce" paths={["Home", "Dashboard", "Ecommerce"]} />
+            <Breadcrumb title="Dashboard" paths={["Home", "Dashboard", "Ecommerce"]} />
 
-            <div className="rounded-xl bg-[#071229] p-6 shadow-md">
-                <h2 className="text-2xl font-bold text-slate-100">Dashboard</h2>
-                <p className="mt-2 text-slate-300">
-                    Overview and quick stats will appear here.
-                </p>
+            <div className="rounded-xl bg-[#071229] p-3 shadow-md">
 
-                <div className="mt-6 grid grid-cols-1 space-y-3 md:grid-cols-4 gap-4">
-                    <div className="p-4 bg-gradient-to-r from-[#13b58b] to-[#0ea5a8] rounded-lg text-slate-100">
+                <div className=" grid grid-cols-1 space-y-2 md:grid-cols-4 gap-2">
+                    <div className="p-2 bg-gradient-to-r from-[#13b58b] to-[#0ea5a8] rounded-lg text-slate-100">
                         <p className="text-lg font-semibold">Total Revenue</p>
                         <div className="flex items-center justify-between">
                             <p className="text-2xl font-bold mt-2">$12,430</p>

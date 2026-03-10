@@ -11,14 +11,17 @@ import {
     Settings,
     ShoppingBag,
     Users,
+    Circle,
+    Activity,
+    TrendingUp,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const menuItems = [
     { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", active: true, badge: "New" },
-    { id: "analytics", icon: BarChart3, label: "Analytics", submenu: [{ id: "overview", label: "Overview" }, { id: "reports", label: "Reports" }, { id: "insights", label: "Insights" }] },
-    { id: "users", icon: Users, label: "Users", count: "2.4k", submenu: [{ id: "all-users", label: "All-Users" }, { id: "roles", label: "Roles & Permissions" }, { id: "activity", label: "User Activity" }] },
-    { id: "ecommerce", icon: ShoppingBag, label: "E-Commerce", submenu: [{ id: "products", label: "Products" }, { id: "orders", label: "Orders" }, { id: "customers", label: "Customers" }] },
+    { id: "analytics", icon: BarChart3, label: "Analytics", submenu: [{ id: "overview", label: "Overview", icon: BarChart3 }, { id: "reports", label: "Reports", icon: FileText }, { id: "insights", label: "Insights", icon: TrendingUp }] },
+    { id: "users", icon: Users, label: "Users", count: "2.4k", submenu: [{ id: "all-users", label: "All-Users", icon: Users }, { id: "roles", label: "Roles & Permissions", icon: Settings }, { id: "activity", label: "User Activity", icon: Activity }] },
+    { id: "ecommerce", icon: ShoppingBag, label: "E-Commerce", submenu: [{ id: "products", label: "Products", icon: Package }, { id: "orders", label: "Orders", icon: ShoppingBag }, { id: "customers", label: "Customers", icon: User }] },
     { id: "inventory", icon: Package, label: "Inventory", count: "847" },
     { id: "transactions", icon: CreditCard, label: "Transactions" },
     { id: "messages", icon: MessageSquare, label: "Messages", badge: "12" },
@@ -27,7 +30,7 @@ const menuItems = [
     { id: "settings", icon: Settings, label: "Settings" },
 ];
 
-const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
+const Sidebar = ({ collapsed, mobileOpen = false, onToggle, currentPage, onPageChange }) => {
     const [expandedItems, setExpandedItems] = useState(new Set(["analytics"]));
     const anyOpen = expandedItems && expandedItems.size > 0;
     const [hideScrollbar, setHideScrollbar] = useState(false);
@@ -48,9 +51,18 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
         setExpandedItems(newExpanded);
     };
 
+    // On small screens the sidebar becomes a slide-over overlay (no page shift).
+    // `mobileOpen` controls visibility on small screens; `collapsed` controls desktop width.
+    const mobileTransform = mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0';
+    // base width for mobile when visible, and sm: widths for desktop collapsed/expanded
+    const baseWidth = 'w-72';
+    const smWidth = collapsed ? 'sm:w-20' : 'sm:w-72';
+
+    const showLabels = !collapsed || mobileOpen;
+
     return (
         <div
-            className={`${collapsed ? "w-20" : "w-72"} transition-all duration-500 ease-in-out backdrop-blur-xl flex flex-col relative z-10`}
+            className={`${mobileTransform} ${baseWidth} ${smWidth} fixed sm:relative left-0 top-12 sm:top-16 bottom-0 sm:inset-y-0 z-40 transform transition-all duration-500 ease-in-out backdrop-blur-xl flex flex-col`}
             style={{ backgroundImage: 'linear-gradient(90deg,var(--bg-start),var(--bg-mid),var(--bg-end))' }}
         >
             <div className="px-4" />
@@ -63,13 +75,14 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
                             onClick={() => {
                                 if (item.submenu) toggleExpanded(item.id);
                                 else onPageChange(item.id);
+                                // keep mobile overlay open; closing is handled only by backdrop or menu button
                             }}
                             className={`w-full flex items-center cursor-pointer justify-between p-3 rounded-xl transition-all duration-200 ${currentPage === item.id || item.active ? 'text-slate-100 shadow-lg shadow-black/30' : 'text-slate-300 hover:bg-slate-800'}`}
                             style={currentPage === item.id || item.active ? { backgroundImage: 'linear-gradient(90deg,var(--accent-1),var(--accent-2))' } : undefined}
                         >
                             <div className="flex items-center space-x-3">
                                 <item.icon className="w-5 h-5 text-slate-300" />
-                                {!collapsed && (
+                                {showLabels && (
                                     <>
                                         <span className="font-medium ml-2">{item.label}</span>
                                         {item.badge && <span className="px-2 py-1 text-xs bg-red-600 text-slate-100 rounded-full">{item.badge}</span>}
@@ -78,13 +91,13 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
                                 )}
                             </div>
 
-                            {!collapsed && item.submenu && (
+                            {showLabels && item.submenu && (
                                 <ChevronDown className={`w-4 h-4 transition-transform ${expandedItems.has(item.id) ? 'rotate-180' : 'rotate-0'}`} />
                             )}
                         </button>
 
                         {/* Sub Menus - animated via max-height + per-item transitions, no scrollbar inside */}
-                        {!collapsed && item.submenu && (
+                        {showLabels && item.submenu && (
                             <div
                                 className="ml-2 mt-2 space-y-1 overflow-hidden transition-all duration-300"
                                 style={{ maxHeight: expandedItems.has(item.id) ? `${item.submenu.length * 44}px` : '0px' }}
@@ -92,11 +105,16 @@ const Sidebar = ({ collapsed, onToggle, currentPage, onPageChange }) => {
                                 {item.submenu.map((subitem, idx) => (
                                     <button
                                         key={subitem.id}
-                                        className={`w-full cursor-pointer text-left p-2 text-sm text-slate-300 rounded-lg transition-all transform ${expandedItems.has(item.id) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'} hover:bg-slate-800`}
+                                        className={`w-full cursor-pointer text-left p-2 text-sm text-slate-300 rounded-lg transition-all transform ${expandedItems.has(item.id) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'} hover:bg-slate-800 flex items-center`}
                                         style={{ transitionDelay: expandedItems.has(item.id) ? `${idx * 30}ms` : '0ms' }}
-                                        onClick={() => onPageChange(subitem.id)}
+                                        onClick={() => { onPageChange(subitem.id); /* keep overlay open */ }}
                                     >
-                                        {subitem.label}
+                                        {subitem.icon ? (
+                                            <subitem.icon className="w-4 h-4 text-slate-400 mr-3" />
+                                        ) : (
+                                            <Circle className="w-3 h-3 text-slate-400 mr-3" />
+                                        )}
+                                        <span>{subitem.label}</span>
                                     </button>
                                 ))}
                             </div>

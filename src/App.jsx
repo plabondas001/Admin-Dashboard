@@ -24,17 +24,45 @@ import Settings from "./Pages/Settings"
 function App() {
 
     const [sideBarCollapsed, setSideBarCollapsed] = useState(false)
+    const [sideBarOpen, setSideBarOpen] = useState(false) // mobile overlay open
     const [currentpage, setCurrentPage] = useState("dashboard")
+
+    const handleToggleSidebar = () => {
+        try {
+            if (window.innerWidth < 640) {
+                // small screens: toggle mobile overlay
+                setSideBarOpen((v) => !v);
+            } else {
+                // desktop: toggle collapsed width
+                setSideBarCollapsed((v) => !v);
+            }
+        } catch (e) {
+            // fallback
+            setSideBarCollapsed((v) => !v);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-[#071229] transition-all duration-500 text-slate-200">
             <div className="flex flex-col h-screen">
                 {/* Header spans full width */}
-                <Header SidebarCollapsed={sideBarCollapsed} onToggleSidebar={() => setSideBarCollapsed(!sideBarCollapsed)} />
+                <Header SidebarCollapsed={sideBarCollapsed} onToggleSidebar={handleToggleSidebar} />
 
                 {/* Below header: sidebar + content */}
                 <div className="flex flex-1 overflow-hidden">
-                    <Sidebar collapsed={sideBarCollapsed} onToggle={() => setSideBarCollapsed(!sideBarCollapsed)} currentPage={currentpage} onPageChange={setCurrentPage} />
+                    {/* Backdrop for mobile when sidebar is open */}
+                    <div
+                        className={`fixed inset-0 bg-black/50 z-30 sm:hidden ${sideBarOpen ? 'block' : 'hidden'}`}
+                        onClick={() => setSideBarOpen(false)}
+                    />
+
+                    <Sidebar
+                        collapsed={sideBarCollapsed}
+                        mobileOpen={sideBarOpen}
+                        onToggle={() => setSideBarCollapsed(!sideBarCollapsed)}
+                        currentPage={currentpage}
+                        onPageChange={(id) => { setCurrentPage(id); }}
+                    />
                     <div className="flex-1 flex flex-col overflow-hidden border-l border-slate-800">
                         <div className="flex-1 overflow-auto">
                             {/* Map page id to component */}

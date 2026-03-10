@@ -1,14 +1,13 @@
 import StatsGrid from "./StatsGrid";
 
-const Dashboard = () => {
-    return (
-        <div className="space-y-6">
+const Dashboard = () => (
+    <div className="space-y-6">
 
-            {/* Stats Grid */}
-            <StatsGrid></StatsGrid>
-            
-        </div>
-    );
-};
+        {/* Stats Grid */}
+        <Breadcrumb title="Dashboard" paths={["Home", "Dashboard", "Ecommerce"]} />
+        <StatsGrid></StatsGrid>
+
+    </div>
+);
 
 export default Dashboard;

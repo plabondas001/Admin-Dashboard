@@ -1,7 +1,6 @@
 import {
     Bell,
     ChevronDown,
-    Filter,
     Menu,
     Plus,
     Search,
@@ -37,8 +36,8 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
     const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
     return (
-        <div className="shadow-lg backdrop-blur-xl border-b border-slate-800 px-6 py-4" style={{ backgroundImage: 'linear-gradient(90deg,var(--bg-start),var(--bg-mid),var(--bg-end))' }}>
-            <div className="flex items-center justify-between">
+        <div className="relative z-50 shadow-lg backdrop-blur-xl border-b border-slate-800 px-4 sm:px-6 py-2 sm:py-4 h-12 sm:h-16" style={{ backgroundImage: 'linear-gradient(90deg,var(--bg-start),var(--bg-mid),var(--bg-end))' }}>
+            <div className="flex items-center justify-between h-full">
                 {/* Left section - logo attached to header */}
                 <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-3">
@@ -66,18 +65,15 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                     </div>
                 </div>
 
-                {/* Center */}
-                <div className="flex-1 max-w-md mx-8">
+                {/* Center - hidden on small screens to keep header compact */}
+                <div className="hidden sm:block flex-1 max-w-md mx-8">
                     <div className="relative">
-                        <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></Search>
+                        <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
                         <input
                             className="w-full pl-10  pr-4 py-2.5 bg-[#0b1a2a] border border-slate-700 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#214b6b] transition-all"
                             type="text"
                             placeholder="Search Anything"
                         />
-                        <button className="absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-slate-200 dark:text-black hover:text-slate-600 dark:hover:text-black">
-                            <Filter></Filter>
-                        </button>
                     </div>
                 </div>
 
