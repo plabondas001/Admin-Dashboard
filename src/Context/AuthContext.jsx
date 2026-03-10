@@ -13,17 +13,18 @@ export const AuthProvider = ({ children }) => {
             const userData = response.data;
 
             // Enforce Superuser Restriction
-            // Assuming the API returns is_superuser or is_staff
             if (!userData.is_superuser && !userData.is_staff) {
                 logout();
-                const error = new Error('Access denied. This dashboard is restricted to superusers only.');
-                error.status = 403;
-                throw error;
+                throw new Error('Access denied. Only superusers or staff can access this dashboard.');
             }
 
-            setUser(userData);
-            localStorage.setItem('admin_user', JSON.stringify(userData));
-            return userData;
+            const userWithId = {
+                ...userData,
+                id: userData.id || userData.user_id || userData.pk
+            };
+            setUser(userWithId);
+            localStorage.setItem('admin_user', JSON.stringify(userWithId));
+            return userWithId;
         } catch (error) {
             console.error('Failed to fetch profile', error);
             if (error.status !== 403) logout();

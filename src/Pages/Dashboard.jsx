@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Breadcrumb from "../Components/Layout/Breadcrumb";
 import BestSellingProductsTable from "../Components/Dashboard/BestSellingProductsTable";
 import StatsGrid from "../Components/Dashboard/StatsGrid";
+import PopularClients from "../Components/Dashboard/PopularClients";
+import OrdersOverview from "../Components/Dashboard/OrdersOverview";
 import FilterBar from "../Components/FilterBar/FilterBar";
 import Pagination from "../Components/Layout/Pagination";
 import api from "../api/axiosConfig";
@@ -116,6 +118,11 @@ const Dashboard = () => {
             <Breadcrumb title="Dashboard" paths={["Home"]} />
 
             <StatsGrid />
+
+            <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <PopularClients />
+                <OrdersOverview />
+            </div>
 
             <div className="mt-6 rounded-xl bg-[#071229] p-6 shadow-md border border-slate-800 text-white">
                 <div className="mb-6">
