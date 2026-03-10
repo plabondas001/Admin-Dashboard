@@ -16,9 +16,9 @@ const FilterBar = ({
     onShowByChange = () => { },
     rating = 0,
     onRatingChange = () => { },
-    category = 'All',
+    category = 'Category',
     onCategoryChange = () => { },
-    brand = 'All',
+    brand = 'Brand',
     onBrandChange = () => { },
     searchQuery = '',
     setSearchQuery = () => { },
@@ -67,17 +67,17 @@ const FilterBar = ({
             </div>
 
             <select value={category} onChange={(e) => onCategoryChange(e.target.value)} className="flex-shrink-0 bg-[#0b1a2a] text-slate-200 border border-slate-700 rounded-md px-3 py-2 focus:outline-none">
-                <option>All</option>
-                {categories.map((c) => <option key={c}>{c}</option>)}
+                <option value="Category">Category</option>
+                {categories.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
 
             <select value={brand} onChange={(e) => onBrandChange(e.target.value)} className="flex-shrink-0 bg-[#0b1a2a] text-slate-200 border border-slate-700 rounded-md px-3 py-2 focus:outline-none">
-                <option>All</option>
-                {brands.map((b) => <option key={b}>{b}</option>)}
+                <option value="Brand">Brand</option>
+                {brands.map((b) => <option key={b} value={b}>{b}</option>)}
             </select>
 
             <div className="flex-1 min-w-0">
-                <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search products..." className="w-full bg-[#0b1a2a] text-slate-200 border border-slate-700 rounded-md px-3 py-2 focus:outline-none" />
+                <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search..." className="w-full bg-[#0b1a2a] text-slate-200 border border-slate-700 rounded-md px-3 py-2 focus:outline-none" />
             </div>
         </div>
     );

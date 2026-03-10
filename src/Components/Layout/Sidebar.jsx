@@ -14,6 +14,7 @@ import {
     Circle,
     Activity,
     TrendingUp,
+    Star,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -21,12 +22,23 @@ const menuItems = [
     { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", active: true, badge: "New" },
     { id: "analytics", icon: BarChart3, label: "Analytics", submenu: [{ id: "overview", label: "Overview", icon: BarChart3 }, { id: "reports", label: "Reports", icon: FileText }, { id: "insights", label: "Insights", icon: TrendingUp }] },
     { id: "users", icon: Users, label: "Users", count: "2.4k", submenu: [{ id: "all-users", label: "All-Users", icon: Users }, { id: "roles", label: "Roles & Permissions", icon: Settings }, { id: "activity", label: "User Activity", icon: Activity }] },
-    { id: "ecommerce", icon: ShoppingBag, label: "E-Commerce", submenu: [{ id: "products", label: "Products", icon: Package }, { id: "orders", label: "Orders", icon: ShoppingBag }, { id: "customers", label: "Customers", icon: User }] },
+    {
+        id: "products",
+        icon: Package,
+        label: "Products",
+        submenu: [
+            { id: "all-products", label: "All Products", icon: Package },
+            { id: "brands", label: "Brands", icon: Star },
+            { id: "categories", label: "Categories", icon: Activity }
+        ]
+    },
+    { id: "orders", icon: ShoppingBag, label: "Orders" },
+    { id: "customers", icon: Users, label: "Customers" },
+    { id: "reviews", icon: Star, label: "Reviews" },
     { id: "inventory", icon: Package, label: "Inventory", count: "847" },
     { id: "transactions", icon: CreditCard, label: "Transactions" },
     { id: "messages", icon: MessageSquare, label: "Messages", badge: "12" },
     { id: "calendar", icon: Calendar, label: "Calendar" },
-    { id: "reports", icon: FileText, label: "Reports" },
     { id: "settings", icon: Settings, label: "Settings" },
 ];
 
@@ -62,13 +74,11 @@ const Sidebar = ({ collapsed, mobileOpen = false, onToggle, currentPage, onPageC
 
     return (
         <div
-            className={`${mobileTransform} ${baseWidth} ${smWidth} fixed sm:relative left-0 top-12 sm:top-16 bottom-0 sm:inset-y-0 z-40 transform transition-all duration-500 ease-in-out backdrop-blur-xl flex flex-col`}
+            className={`${mobileTransform} ${baseWidth} ${smWidth} fixed sm:relative left-0 top-12 sm:top-0 bottom-0 sm:inset-y-0 z-40 transform transition-all duration-500 ease-in-out backdrop-blur-xl flex flex-col`}
             style={{ backgroundImage: 'linear-gradient(90deg,var(--bg-start),var(--bg-mid),var(--bg-end))' }}
         >
-            <div className="px-4" />
-
             {/* Navigation */}
-            <nav className={`flex-1 p-4 space-y-2 overflow-y-auto ${hideScrollbar ? 'no-scrollbar' : ''}`}>
+            <nav className={`flex-1 px-4 py-2 space-y-1 overflow-y-auto ${hideScrollbar ? 'no-scrollbar' : ''}`}>
                 {menuItems.map((item) => (
                     <div key={item.id}>
                         <button

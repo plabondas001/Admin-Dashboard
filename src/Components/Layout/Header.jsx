@@ -8,10 +8,13 @@ import {
     Sun,
     Moon,
     User,
+    LogOut,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../Context/AuthContext";
 
 const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
+    const { user, logout } = useAuth();
     const [theme, setTheme] = useState(() => {
         try {
             const t = localStorage.getItem("theme");
@@ -61,7 +64,7 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                         <h1 className="text-2xl font-bold text-slate-100">
                             Dashboard
                         </h1>
-                        <p className="text-sm text-slate-300">Welcome back, Alex! here's what's happening today</p>
+                        <p className="text-sm text-slate-300">Welcome back, {user?.name.split(' ')[0] || 'Admin'}! here's what's happening today</p>
                     </div>
                 </div>
 
@@ -78,7 +81,6 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                 </div>
 
                 {/* Right */}
-
                 <div className="flex items-center space-x-3">
                     {/* Quic Action */}
                     <button className="hidden cursor-pointer lg:flex items-center space-x-2 py-2 px-4 text-slate-100 rounded-xl hover:shadow-lg transition-all" style={{ backgroundImage: 'linear-gradient(90deg,var(--accent-strong-start),var(--accent-strong-end))' }}>
@@ -113,20 +115,25 @@ const Header = ({ SidebarCollapsed, onToggleSidebar }) => {
                     </button>
 
                     {/* User Profile */}
-
-                    <div className="flex items-center space-x-3 pl-3 border-l border-slate-700 dark:border-slate-200">
-                        <div className="w-8 h-8 rounded-full bg-slate-700 ring-2 ring-[#184a6a] flex items-center justify-center text-slate-200">
+                    <div className="flex items-center space-x-3 pl-3 border-l border-slate-700">
+                        <div className="w-8 h-8 rounded-full bg-slate-700 ring-2 ring-[#184a6a] flex items-center justify-center text-slate-200 overflow-hidden">
                             <User className="w-4 h-4" />
                         </div>
                         <div className="hidden md:block">
-                            <p className="text-md font-bold text-slate-100">
-                                Plabon Das
+                            <p className="text-xs font-bold text-slate-100 uppercase tracking-tight truncate max-w-[100px]">
+                                {user?.name || 'Administrator'}
                             </p>
-                            <p className="text-xs text-slate-300">
-                                Administrator
+                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest truncate">
+                                {user?.role || 'Super Admin'}
                             </p>
                         </div>
-                        <ChevronDown className="w-4 h-4 text-slate-200"></ChevronDown>
+                        <button
+                            onClick={logout}
+                            title="Logout"
+                            className="p-2 ml-2 bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all group shadow-lg shadow-red-500/5 active:scale-95"
+                        >
+                            <LogOut className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                        </button>
                     </div>
                 </div>
             </div>
